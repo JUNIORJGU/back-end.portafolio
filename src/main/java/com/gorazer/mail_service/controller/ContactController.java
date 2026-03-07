@@ -8,7 +8,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 @RestController
 @RequestMapping("/api/contact")
-@CrossOrigin(origins = "https://back-end-portafolio-zash.onrender.com/")
+@CrossOrigin(origins = "https://juniorjgu.dev/")
 public class ContactController {
 	
 	@Autowired
