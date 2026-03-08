@@ -26,10 +26,10 @@ public class ContactController {
             return ResponseEntity.ok("Mensaje recibido"); 
         }
         try {
-            emailService.sendSimpleEmail(
-                "juniorjguosrs@gmail.com", 
-                "Nuevo contacto: " + request.getName(), 
-                "De: " + request.getEmail() + "\n\nMensaje: " + request.getMessage()
+        	emailService.sendSimpleEmail(
+        		    "tuemail@gmail.com",
+        		    "Nuevo contacto: " + request.getName(),
+        		    "De: " + request.getEmail() + "\n\nMensaje:\n" + request.getMessage()
             );
             return ResponseEntity.ok("Email enviado con éxito");
         } catch (Exception e) {
