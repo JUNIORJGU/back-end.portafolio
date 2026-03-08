@@ -14,20 +14,23 @@ public class EmailService {
 
     public void sendSimpleEmail(String to, String subject, String body) throws Exception {
 
-        String json = """
-        {
-          "from": "Portfolio <onboarding@resend.dev>",
-          "to": ["%s"],
-          "subject": "%s",
-          "text": "%s"
-        }
-        """.formatted(to, subject, body);
+    	String json = "{"
+    	        + "\"from\":\"Portfolio <contacto@juniorjgu.dev>\","
+    	        + "\"to\":[\"" + to + "\"],"
+    	        + "\"subject\":\"" + subject + "\","
+    	        + "\"text\":\"" + body.replace("\n","\\n").replace("\"","\\\"") + "\""
+    	        + "}";
+    	
+        RequestBody requestBody = RequestBody.create(
+                json,
+                MediaType.parse("application/json")
+        );
 
         Request request = new Request.Builder()
                 .url("https://api.resend.com/emails")
                 .addHeader("Authorization", "Bearer " + apiKey)
                 .addHeader("Content-Type", "application/json")
-                .post(RequestBody.create(json, MediaType.parse("application/json")))
+                .post(requestBody)
                 .build();
 
         Response response = client.newCall(request).execute();
