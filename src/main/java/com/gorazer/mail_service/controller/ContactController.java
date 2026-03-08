@@ -8,22 +8,23 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 @RestController
 @RequestMapping("/api")
-@CrossOrigin(origins = "https://juniorjgu.dev")
+@CrossOrigin(origins = {"https://juniorjgu.dev", "http://localhost:5173"}) 
 public class ContactController {
 	
 	@Autowired
     private EmailService emailService;
 	
+
+    @GetMapping("/")
+    public String healthCheck() {
+        return "Backend is running!";
+    }
     @PostMapping("/contact")
     public ResponseEntity<?> sendEmail(@Valid @RequestBody ContactRequest request) {
-        
 
         if (request.getHoneypot() != null && !request.getHoneypot().isBlank()) {
-
             return ResponseEntity.ok("Mensaje recibido"); 
         }
-
-
         try {
             emailService.sendSimpleEmail(
                 "juniorjguosrs@gmail.com", 
@@ -32,7 +33,9 @@ public class ContactController {
             );
             return ResponseEntity.ok("Email enviado con éxito");
         } catch (Exception e) {
-            return ResponseEntity.status(500).body("Error al enviar el correo");
+
+            e.printStackTrace(); 
+            return ResponseEntity.status(500).body("Error al enviar el correo: " + e.getMessage());
         }
 	}
-  }
+}
