@@ -27,7 +27,7 @@ public class ContactController {
         }
         try {
         	emailService.sendSimpleEmail(
-        		    "tuemail@gmail.com",
+        		    "contacto@juniorjgu.dev",
         		    "Nuevo contacto: " + request.getName(),
         		    "De: " + request.getEmail() + "\n\nMensaje:\n" + request.getMessage()
             );
